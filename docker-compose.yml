@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: orp101099
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./core/src/main/resources/db/schema/init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql
+    networks:
+      gubee_network:
+
+networks:
+  gubee_network:

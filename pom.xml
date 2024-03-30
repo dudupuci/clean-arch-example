@@ -8,7 +8,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>gubee</groupId>
-    <artifactId>teste-pleno-gubee</artifactId>
+    <artifactId>teste-dev-gubee-main</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
@@ -40,15 +40,17 @@
     </properties>
 
     <modules>
-        <module>core</module>
-        <module>model</module>
+        <module>application</module>
+        <module>infrastructure</module>
+        <module>domain</module>
+        <module>interfaces</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>gubee</groupId>
-                <artifactId>teste-pleno-gubee-model</artifactId>
+                <artifactId>domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
