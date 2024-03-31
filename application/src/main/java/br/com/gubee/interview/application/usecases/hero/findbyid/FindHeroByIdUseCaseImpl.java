@@ -1,7 +1,7 @@
 package br.com.gubee.interview.application.usecases.hero.findbyid;
 
 import br.com.gubee.interview.domain.entities.hero.Hero;
-import br.com.gubee.interview.domain.entities.hero.HeroGateway;
+import br.com.gubee.interview.domain.entities.hero.HeroRepository;
 import br.com.gubee.interview.domain.exceptions.HeroNotFoundException;
 import org.springframework.stereotype.Component;
 
@@ -10,9 +10,9 @@ import java.util.Optional;
 
 @Component
 public class FindHeroByIdUseCaseImpl extends FindHeroByIdUseCase {
-    private final HeroGateway gateway;
+    private final HeroRepository gateway;
 
-    public FindHeroByIdUseCaseImpl(final HeroGateway gateway) {
+    public FindHeroByIdUseCaseImpl(final HeroRepository gateway) {
         this.gateway = Objects.requireNonNull(gateway);
     }
 

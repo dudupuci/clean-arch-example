@@ -1,7 +1,7 @@
 package br.com.gubee.interview.application.usecases.hero.delete;
 
 import br.com.gubee.interview.domain.entities.hero.Hero;
-import br.com.gubee.interview.domain.entities.hero.HeroGateway;
+import br.com.gubee.interview.domain.entities.hero.HeroRepository;
 import br.com.gubee.interview.domain.exceptions.HeroNotFoundException;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +11,9 @@ import java.util.Optional;
 @Component
 public class DeleteHeroUseCaseImpl extends DeleteHeroUseCase {
 
-    private final HeroGateway gateway;
+    private final HeroRepository gateway;
 
-    public DeleteHeroUseCaseImpl(final HeroGateway gateway) {
+    public DeleteHeroUseCaseImpl(final HeroRepository gateway) {
         this.gateway = Objects.requireNonNull(gateway);
     }
 

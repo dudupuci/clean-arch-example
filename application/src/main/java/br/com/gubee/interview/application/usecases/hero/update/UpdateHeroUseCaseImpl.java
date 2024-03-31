@@ -1,7 +1,7 @@
 package br.com.gubee.interview.application.usecases.hero.update;
 
 import br.com.gubee.interview.domain.entities.hero.Hero;
-import br.com.gubee.interview.domain.entities.hero.HeroGateway;
+import br.com.gubee.interview.domain.entities.hero.HeroRepository;
 import br.com.gubee.interview.domain.exceptions.HeroNotFoundException;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +11,9 @@ import java.util.Optional;
 @Component
 public class UpdateHeroUseCaseImpl extends UpdateHeroUseCase {
 
-    private final HeroGateway gateway;
+    private final HeroRepository gateway;
 
-    public UpdateHeroUseCaseImpl(final HeroGateway gateway) {
+    public UpdateHeroUseCaseImpl(final HeroRepository gateway) {
         this.gateway = Objects.requireNonNull(gateway);
     }
 

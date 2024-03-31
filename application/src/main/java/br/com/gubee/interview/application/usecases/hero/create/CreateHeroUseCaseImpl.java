@@ -1,16 +1,16 @@
 package br.com.gubee.interview.application.usecases.hero.create;
 
 import br.com.gubee.interview.domain.entities.hero.Hero;
-import br.com.gubee.interview.domain.entities.hero.HeroGateway;
+import br.com.gubee.interview.domain.entities.hero.HeroRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
 @Component
 public class CreateHeroUseCaseImpl extends CreateHeroUseCase{
-    private final HeroGateway gateway;
+    private final HeroRepository gateway;
 
-    public CreateHeroUseCaseImpl(final HeroGateway gateway) {
+    public CreateHeroUseCaseImpl(final HeroRepository gateway) {
         this.gateway = Objects.requireNonNull(gateway, "Heroe's gateway must be not null.");
     }
 
@@ -21,9 +21,10 @@ public class CreateHeroUseCaseImpl extends CreateHeroUseCase{
                 anIn.race(),
                 anIn.powerStats()
         );
+        // checar criacao de powerStats
 
         hero.validate();
-        this.gateway.create(hero);
+        this.gateway.save(hero);
         return hero;
     }
 }
