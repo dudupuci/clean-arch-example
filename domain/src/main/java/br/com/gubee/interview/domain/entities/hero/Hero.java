@@ -66,7 +66,8 @@ public class Hero extends Entity<HeroId> {
        Objects.requireNonNull(this.id, "Hero must have an ID");
     }
 
-    public Hero update(Race race, PowerStats powerStats, Boolean enabled) {
+    public Hero update(String name, Race race, PowerStats powerStats, Boolean enabled) {
+        this.name = name;
         this.race = race;
         this.powerStats = powerStats;
         this.enabled = enabled;

@@ -1,7 +1,11 @@
 package br.com.gubee.interview.infrastructure.configuration.usecases.impl;
 
+import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionCommand;
+import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionUseCase;
 import br.com.gubee.interview.application.usecases.hero.create.CreateHeroCommand;
 import br.com.gubee.interview.application.usecases.hero.create.CreateHeroUseCase;
+import br.com.gubee.interview.application.usecases.hero.delete.DeleteHeroCommand;
+import br.com.gubee.interview.application.usecases.hero.delete.DeleteHeroUseCase;
 import br.com.gubee.interview.application.usecases.hero.findall.FindAllHeroesCommand;
 import br.com.gubee.interview.application.usecases.hero.findall.FindAllHeroesUseCase;
 import br.com.gubee.interview.application.usecases.hero.findbyid.FindHeroByIdCommand;
@@ -10,6 +14,7 @@ import br.com.gubee.interview.application.usecases.hero.findbyid.FindHeroByIdUse
 import br.com.gubee.interview.application.usecases.hero.update.UpdateHeroCommand;
 import br.com.gubee.interview.application.usecases.hero.update.UpdateHeroUseCase;
 import br.com.gubee.interview.domain.entities.hero.Hero;
+import br.com.gubee.interview.domain.valueobjects.Comparision;
 import br.com.gubee.interview.infrastructure.configuration.usecases.HeroFacade;
 import org.springframework.stereotype.Service;
 
@@ -22,17 +27,23 @@ public class HeroFacadeImpl implements HeroFacade {
     private final FindHeroByIdUseCase findHeroByIdUseCase;
     private final FindAllHeroesUseCase findAllHeroesUseCase;
     private final UpdateHeroUseCase updateHeroUseCase;
+    private final DeleteHeroUseCase deleteHeroUseCase;
+    private final ComparisionUseCase comparisionUseCase;
 
     public HeroFacadeImpl(
             final CreateHeroUseCase createHeroUseCase,
             final FindHeroByIdUseCase findHeroByIdUseCase,
             final FindAllHeroesUseCase findAllHeroesUseCase,
-            final UpdateHeroUseCase updateHeroUseCase
+            final UpdateHeroUseCase updateHeroUseCase,
+            final DeleteHeroUseCase deleteHeroUseCase,
+            final ComparisionUseCase comparisionUseCase
     ) {
         this.createHeroUseCase = createHeroUseCase;
         this.findHeroByIdUseCase = findHeroByIdUseCase;
         this.findAllHeroesUseCase = findAllHeroesUseCase;
         this.updateHeroUseCase = updateHeroUseCase;
+        this.deleteHeroUseCase = deleteHeroUseCase;
+        this.comparisionUseCase = comparisionUseCase;
     }
 
     @Override
@@ -53,5 +64,15 @@ public class HeroFacadeImpl implements HeroFacade {
     @Override
     public void update(final UpdateHeroCommand command) {
         this.updateHeroUseCase.execute(command);
+    }
+
+    @Override
+    public void delete(final DeleteHeroCommand command) {
+        this.deleteHeroUseCase.execute(command);
+    }
+
+    @Override
+    public Comparision compare(final ComparisionCommand command) {
+        return this.comparisionUseCase.execute(command);
     }
 }

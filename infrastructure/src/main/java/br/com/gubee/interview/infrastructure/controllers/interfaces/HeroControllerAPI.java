@@ -1,5 +1,6 @@
 package br.com.gubee.interview.infrastructure.controllers.interfaces;
 
+import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionCommand;
 import br.com.gubee.interview.application.usecases.hero.create.CreateHeroCommand;
 import br.com.gubee.interview.application.usecases.hero.update.UpdateHeroCommand;
 import br.com.gubee.interview.domain.entities.hero.Hero;
@@ -21,8 +22,14 @@ public interface HeroControllerAPI {
     ResponseEntity<FindHeroByIdApiResponse> findById(@PathVariable("id") UUID id);
 
     @GetMapping
-    ResponseEntity<List<Hero>> findAll(@RequestParam(name = "name", required = false) String name);
+    ResponseEntity<?> findAll(@RequestParam(name = "name", required = false) String name);
 
     @PutMapping("/{id}")
-    ResponseEntity<Void> update(@RequestBody UpdateHeroCommand command);
+    ResponseEntity<?> update(@RequestBody UpdateHeroCommand command);
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> deleteById(@PathVariable("id") UUID id);
+
+    @GetMapping("/compare")
+    ResponseEntity<?> compare(@RequestBody ComparisionCommand command);
 }

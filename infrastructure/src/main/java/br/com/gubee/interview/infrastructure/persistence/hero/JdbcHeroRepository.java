@@ -33,30 +33,26 @@ public class JdbcHeroRepository implements HeroRepository {
         StringBuilder sql = new StringBuilder("UPDATE interview_service.hero SET ");
         MapSqlParameterSource params = new MapSqlParameterSource();
 
-        boolean needComma = false;
-
         if (anHero.getName() != null) {
-            sql.append("name = :name");
+            sql.append("name = :name, ");
             params.addValue("name", anHero.getName());
-            needComma = true;
         }
 
         if (anHero.getRace() != null) {
-            if (needComma) {
-                sql.append(", ");
-            }
-            sql.append("race = :race");
-            params.addValue("race", anHero.getRace().toString());
-            needComma = true;
+            sql.append("race = :race, ");
+            params.addValue("race", anHero.getRace().name());
         }
 
-        if (needComma) {
-            sql.append(", ");
+        if (anHero.getEnabled() != null) {
+            sql.append("enabled = :enabled, ");
+            params.addValue("enabled", anHero.getEnabled());
         }
+
         sql.append("updated_at = :updated_at ");
+        params.addValue("updated_at", Timestamp.from(Instant.now()));
+
         sql.append("WHERE id = :id");
-        params.addValue("updated_at", Timestamp.from(Instant.now()))
-                .addValue("id", UUID.fromString(HeroId.from(anHero.getId().getValue()).getValue()));
+        params.addValue("id", UUID.fromString(anHero.getId().getValue()));
 
         jdbcTemplate.update(sql.toString(), params);
 
@@ -86,15 +82,10 @@ public class JdbcHeroRepository implements HeroRepository {
                 powerStatsParams.addValue("intelligence", powerStats.getIntelligence());
             }
 
-            if (powerStatsSql.lastIndexOf(", ") != -1) {
-                powerStatsSql.delete(powerStatsSql.lastIndexOf(", "), powerStatsSql.length());
-            }
-
-            powerStatsSql.append(", updated_at = :updated_at");
-            powerStatsSql.append(" WHERE id = :id");
-            powerStatsParams.addValue("id", UUID.fromString(powerStats.getId().getValue()))
-                    .addValue("updated_at", Timestamp.from(Instant.now()));
-
+            powerStatsSql.append("updated_at = :updated_at ");
+            powerStatsSql.append("WHERE id = :id");
+            powerStatsParams.addValue("id", UUID.fromString(powerStats.getId().getValue()));
+            powerStatsParams.addValue("updated_at", Timestamp.from(Instant.now()));
 
             jdbcTemplate.update(powerStatsSql.toString(), powerStatsParams);
         }
@@ -182,6 +173,27 @@ public class JdbcHeroRepository implements HeroRepository {
     }
 
     @Override
+    @Transactional
+    public void deleteById(String id) {
+        Optional<Hero> heroOptional = findById(id);
+
+        if (heroOptional.isPresent()) {
+            Hero hero = heroOptional.get();
+            PowerStats powerStats = hero.getPowerStats();
+
+            String deleteHeroAndPowerStatsSql = "DELETE FROM interview_service.hero WHERE id = :heroId; " +
+                    "DELETE FROM interview_service.power_stats WHERE id = :powerStatsId";
+
+            MapSqlParameterSource params = new MapSqlParameterSource()
+                    .addValue("heroId", UUID.fromString(id))
+                    .addValue("powerStatsId", UUID.fromString(powerStats.getId().getValue()));
+
+            jdbcTemplate.update(deleteHeroAndPowerStatsSql, params);
+        }
+    }
+
+
+    @Override
     @Transactional(readOnly = true)
     public Optional<Hero> findById(final String id) {
         String sql = "SELECT h.*, p.* FROM interview_service.hero h " +
@@ -212,10 +224,5 @@ public class JdbcHeroRepository implements HeroRepository {
 
             return Optional.of(hero);
         });
-    }
-
-    @Override
-    public void deleteById(String id) {
-
     }
 }

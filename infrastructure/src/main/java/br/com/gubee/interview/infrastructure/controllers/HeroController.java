@@ -1,6 +1,7 @@
 package br.com.gubee.interview.infrastructure.controllers;
 
-import br.com.gubee.interview.application.usecases.hero.create.CreateHeroCommand;
+import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionCommand;
+import br.com.gubee.interview.application.usecases.hero.delete.DeleteHeroCommand;
 import br.com.gubee.interview.application.usecases.hero.findall.FindAllHeroesCommand;
 import br.com.gubee.interview.application.usecases.hero.findbyid.FindHeroByIdCommand;
 import br.com.gubee.interview.application.usecases.hero.update.UpdateHeroCommand;
@@ -11,12 +12,12 @@ import br.com.gubee.interview.infrastructure.controllers.interfaces.HeroControll
 import br.com.gubee.interview.infrastructure.controllers.presentation.requests.CreateHeroApiRequest;
 import br.com.gubee.interview.infrastructure.controllers.presentation.responses.FindHeroByIdApiResponse;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -47,19 +48,44 @@ public class HeroController implements HeroControllerAPI {
     }
 
     @Override
-    public ResponseEntity<List<Hero>> findAll(String name) {
-        var command = new FindAllHeroesCommand(name);
-        var heroes = this.heroFacade.findAll(command);
-        return ResponseEntity.ok().body(heroes);
+    public ResponseEntity<?> findAll(String name) {
+        try {
+            var command = new FindAllHeroesCommand(name);
+            var heroes = this.heroFacade.findAll(command);
+            return ResponseEntity.ok().body(heroes);
+        } catch (IllegalArgumentException err) {
+            return ResponseEntity.badRequest().body(err.getMessage());
+        }
     }
 
     @Override
-    public ResponseEntity<Void> update(UpdateHeroCommand command) {
+    public ResponseEntity<?> update(UpdateHeroCommand command) {
         try {
             this.heroFacade.update(command);
             return ResponseEntity.ok().build();
-        } catch (HeroNotFoundException err) {
-            return ResponseEntity.notFound().build();
+        } catch (HeroNotFoundException | EmptyResultDataAccessException err) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Hero not found");
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> deleteById(UUID id) {
+        try {
+            var command = new DeleteHeroCommand(id.toString());
+            this.heroFacade.delete(command);
+            return ResponseEntity.noContent().build();
+        } catch (HeroNotFoundException | EmptyResultDataAccessException err) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Hero not found");
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> compare(final ComparisionCommand command) {
+        try {
+            var comparision = this.heroFacade.compare(command);
+            return ResponseEntity.ok().body(comparision);
+        } catch (Exception err) {
+            return ResponseEntity.badRequest().build();
         }
     }
 
