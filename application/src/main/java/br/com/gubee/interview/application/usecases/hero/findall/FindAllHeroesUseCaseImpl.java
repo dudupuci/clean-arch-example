@@ -5,6 +5,7 @@ import br.com.gubee.interview.domain.entities.hero.HeroRepository;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 public class FindAllHeroesUseCaseImpl extends FindAllHeroesUseCase {
@@ -15,7 +16,10 @@ public class FindAllHeroesUseCaseImpl extends FindAllHeroesUseCase {
     }
 
     @Override
-    public List<Hero> execute(final FindAllHeroesCommand anIn) {
-        return this.gateway.findAll(anIn.name());
+    public List<FindAllHeroesOutput> execute(final FindAllHeroesCommand anIn) {
+        List<Hero> heroes = this.gateway.findAll(anIn.name());
+        return heroes.stream()
+                .map(FindAllHeroesOutput::from)
+                .collect(Collectors.toList());
     }
 }

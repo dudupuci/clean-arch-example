@@ -6,10 +6,7 @@ import br.com.gubee.interview.domain.enums.Race;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record CreateHeroApiRequest(
-
-        @JsonProperty("name")
         String name,
-        @JsonProperty("race")
         Race race,
         @JsonProperty("power_stats")
         PowerStats powerStats

@@ -5,5 +5,5 @@ import br.com.gubee.interview.domain.entities.hero.Hero;
 
 import java.util.List;
 
-public abstract class FindAllHeroesUseCase extends UseCase<FindAllHeroesCommand, List<Hero>> {
+public abstract class FindAllHeroesUseCase extends UseCase<FindAllHeroesCommand, List<FindAllHeroesOutput>> {
 }

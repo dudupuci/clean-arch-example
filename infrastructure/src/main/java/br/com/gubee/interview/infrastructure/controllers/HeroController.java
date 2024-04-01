@@ -10,6 +10,8 @@ import br.com.gubee.interview.domain.exceptions.HeroNotFoundException;
 import br.com.gubee.interview.infrastructure.configuration.usecases.HeroFacade;
 import br.com.gubee.interview.infrastructure.controllers.interfaces.HeroControllerAPI;
 import br.com.gubee.interview.infrastructure.controllers.presentation.requests.CreateHeroApiRequest;
+import br.com.gubee.interview.infrastructure.controllers.presentation.requests.UpdateHeroApiRequest;
+import br.com.gubee.interview.infrastructure.controllers.presentation.responses.ComparisionApiResponse;
 import br.com.gubee.interview.infrastructure.controllers.presentation.responses.FindHeroByIdApiResponse;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -59,9 +61,9 @@ public class HeroController implements HeroControllerAPI {
     }
 
     @Override
-    public ResponseEntity<?> update(UpdateHeroCommand command) {
+    public ResponseEntity<?> update(UpdateHeroApiRequest request) {
         try {
-            this.heroFacade.update(command);
+            this.heroFacade.update(request.toCommand());
             return ResponseEntity.ok().build();
         } catch (HeroNotFoundException | EmptyResultDataAccessException err) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Hero not found");
@@ -82,10 +84,10 @@ public class HeroController implements HeroControllerAPI {
     @Override
     public ResponseEntity<?> compare(final ComparisionCommand command) {
         try {
-            var comparision = this.heroFacade.compare(command);
-            return ResponseEntity.ok().body(comparision);
-        } catch (Exception err) {
-            return ResponseEntity.badRequest().build();
+            var comparisionOutput = this.heroFacade.compare(command);
+            return ResponseEntity.ok().body(ComparisionApiResponse.from(comparisionOutput));
+        } catch (HeroNotFoundException | EmptyResultDataAccessException err) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Hero not found");
         }
     }
 

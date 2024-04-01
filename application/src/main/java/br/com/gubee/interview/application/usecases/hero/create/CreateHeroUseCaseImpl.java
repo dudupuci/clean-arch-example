@@ -30,7 +30,6 @@ public class CreateHeroUseCaseImpl extends CreateHeroUseCase{
         );
 
         hero.validate();
-        this.gateway.save(hero);
-        return hero;
+        return this.gateway.save(hero);
     }
 }

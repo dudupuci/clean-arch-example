@@ -18,7 +18,7 @@ public class ComparionUseCaseImpl extends ComparisionUseCase {
     }
 
     @Override
-    public Comparision execute(final ComparisionCommand anIn) {
+    public ComparisionOutput execute(final ComparisionCommand anIn) {
         Optional<Hero> optionalHero = this.heroRepository.findById(anIn.heroId());
         Optional<Hero> optionalAnotherHero = this.heroRepository.findById(anIn.anotherHeroId());
 
@@ -42,11 +42,13 @@ public class ComparionUseCaseImpl extends ComparisionUseCase {
         comparePowerStat("dexterity", heroPowerStats.getDexterity(), anotherHeroPowerStats.getDexterity(), hero.getName(), anotherHero.getName(), details);
         comparePowerStat("intelligence", heroPowerStats.getIntelligence(), anotherHeroPowerStats.getIntelligence(), hero.getName(), anotherHero.getName(), details);
 
-        return new Comparision(
+        return new ComparisionOutput(
                 hero.getId().getValue(),
+                hero.getName(),
                 anotherHero.getId().getValue(),
-                heroPowerStats,
-                anotherHeroPowerStats,
+                anotherHero.getName(),
+                ComparisionOutput.HeroPowerStatsOutput.from(heroPowerStats),
+                ComparisionOutput.HeroPowerStatsOutput.from(anotherHeroPowerStats),
                 details
         );
     }

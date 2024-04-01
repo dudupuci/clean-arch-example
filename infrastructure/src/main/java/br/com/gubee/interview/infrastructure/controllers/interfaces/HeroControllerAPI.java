@@ -5,6 +5,7 @@ import br.com.gubee.interview.application.usecases.hero.create.CreateHeroCommand
 import br.com.gubee.interview.application.usecases.hero.update.UpdateHeroCommand;
 import br.com.gubee.interview.domain.entities.hero.Hero;
 import br.com.gubee.interview.infrastructure.controllers.presentation.requests.CreateHeroApiRequest;
+import br.com.gubee.interview.infrastructure.controllers.presentation.requests.UpdateHeroApiRequest;
 import br.com.gubee.interview.infrastructure.controllers.presentation.responses.FindHeroByIdApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public interface HeroControllerAPI {
     ResponseEntity<?> findAll(@RequestParam(name = "name", required = false) String name);
 
     @PutMapping("/{id}")
-    ResponseEntity<?> update(@RequestBody UpdateHeroCommand command);
+    ResponseEntity<?> update(@RequestBody UpdateHeroApiRequest request);
 
     @DeleteMapping("/{id}")
     ResponseEntity<?> deleteById(@PathVariable("id") UUID id);

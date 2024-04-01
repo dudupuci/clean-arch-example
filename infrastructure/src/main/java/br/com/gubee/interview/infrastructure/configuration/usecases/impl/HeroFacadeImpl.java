@@ -1,12 +1,14 @@
 package br.com.gubee.interview.infrastructure.configuration.usecases.impl;
 
 import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionCommand;
+import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionOutput;
 import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionUseCase;
 import br.com.gubee.interview.application.usecases.hero.create.CreateHeroCommand;
 import br.com.gubee.interview.application.usecases.hero.create.CreateHeroUseCase;
 import br.com.gubee.interview.application.usecases.hero.delete.DeleteHeroCommand;
 import br.com.gubee.interview.application.usecases.hero.delete.DeleteHeroUseCase;
 import br.com.gubee.interview.application.usecases.hero.findall.FindAllHeroesCommand;
+import br.com.gubee.interview.application.usecases.hero.findall.FindAllHeroesOutput;
 import br.com.gubee.interview.application.usecases.hero.findall.FindAllHeroesUseCase;
 import br.com.gubee.interview.application.usecases.hero.findbyid.FindHeroByIdCommand;
 import br.com.gubee.interview.application.usecases.hero.findbyid.FindHeroByIdOutput;
@@ -57,7 +59,7 @@ public class HeroFacadeImpl implements HeroFacade {
     }
 
     @Override
-    public List<Hero> findAll(final FindAllHeroesCommand command) {
+    public List<FindAllHeroesOutput> findAll(final FindAllHeroesCommand command) {
         return this.findAllHeroesUseCase.execute(command);
     }
 
@@ -72,7 +74,7 @@ public class HeroFacadeImpl implements HeroFacade {
     }
 
     @Override
-    public Comparision compare(final ComparisionCommand command) {
+    public ComparisionOutput compare(final ComparisionCommand command) {
         return this.comparisionUseCase.execute(command);
     }
 }
