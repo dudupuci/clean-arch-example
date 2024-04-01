@@ -28,6 +28,7 @@ public class JdbcHeroRepository implements HeroRepository {
     }
 
     @Override
+    @Transactional
     public void update(final Hero anHero) {
         StringBuilder sql = new StringBuilder("UPDATE interview_service.hero SET ");
         MapSqlParameterSource params = new MapSqlParameterSource();
@@ -149,6 +150,7 @@ public class JdbcHeroRepository implements HeroRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Hero> findAll(String name) {
         String sql = "SELECT h.*, p.* FROM interview_service.hero h " +
                 "JOIN interview_service.power_stats p ON h.power_stats_id = p.id";
@@ -180,6 +182,7 @@ public class JdbcHeroRepository implements HeroRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Hero> findById(final String id) {
         String sql = "SELECT h.*, p.* FROM interview_service.hero h " +
                 "JOIN interview_service.power_stats p ON h.power_stats_id = p.id " +
