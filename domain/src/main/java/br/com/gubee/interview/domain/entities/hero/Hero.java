@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -62,14 +63,15 @@ public class Hero extends Entity<HeroId> {
 
     @Override
     public void validate() {
-
+       Objects.requireNonNull(this.id, "Hero must have an ID");
     }
 
-    public void update(Race race, PowerStats powerStats, Boolean enabled) {
+    public Hero update(Race race, PowerStats powerStats, Boolean enabled) {
         this.race = race;
         this.powerStats = powerStats;
         this.enabled = enabled;
         this.updatedAt = Instant.now();
+        return this;
     }
 
     @Override

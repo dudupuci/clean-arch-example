@@ -19,7 +19,7 @@ public class PowerStatsId extends Identifier {
         return PowerStatsId.from(UUID.randomUUID());
     }
 
-    private static PowerStatsId from(final String anId) {
+    public static PowerStatsId from(final String anId) {
         return new PowerStatsId(anId);
     }
 

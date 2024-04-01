@@ -12,16 +12,9 @@ public abstract class Entity<ID extends Identifier> {
     protected Instant updatedAt;
 
     protected Entity(final ID id, final Instant createdAt, Instant updatedAt) {
-        Objects.requireNonNull(id, "Entity cannot be created without ID.");
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-    }
-
-    public Entity(ID id, Instant createdAt) {
-        Objects.requireNonNull(id, "Entity cannot be created with null id.");
-        this.id = id;
-        this.createdAt = createdAt;
     }
 
     public abstract void validate();

@@ -1,7 +1,6 @@
 D:\projetos\teste-dev-gubee-main\application\src\main\java\br\com\gubee\interview\application\usecases\hero\findall\FindAllHeroesUseCase.java
 D:\projetos\teste-dev-gubee-main\application\src\main\java\br\com\gubee\interview\application\UnitUseCase.java
 D:\projetos\teste-dev-gubee-main\application\src\main\java\br\com\gubee\interview\application\usecases\hero\findbyid\FindHeroByIdUseCaseImpl.java
-D:\projetos\teste-dev-gubee-main\application\src\main\java\br\com\gubee\interview\application\configuration\WebConfiguration.java
 D:\projetos\teste-dev-gubee-main\application\src\main\java\br\com\gubee\interview\application\usecases\hero\create\CreateHeroCommand.java
 D:\projetos\teste-dev-gubee-main\application\src\main\java\br\com\gubee\interview\application\usecases\hero\create\CreateHeroUseCase.java
 D:\projetos\teste-dev-gubee-main\application\src\main\java\br\com\gubee\interview\application\usecases\hero\findall\FindAllHeroesCommand.java

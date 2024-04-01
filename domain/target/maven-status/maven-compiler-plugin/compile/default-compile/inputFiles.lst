@@ -4,8 +4,9 @@ D:\projetos\teste-dev-gubee-main\domain\src\main\java\br\com\gubee\interview\dom
 D:\projetos\teste-dev-gubee-main\domain\src\main\java\br\com\gubee\interview\domain\enums\Race.java
 D:\projetos\teste-dev-gubee-main\domain\src\main\java\br\com\gubee\interview\domain\entities\powerstats\PowerStats.java
 D:\projetos\teste-dev-gubee-main\domain\src\main\java\br\com\gubee\interview\domain\exceptions\HeroNotFoundException.java
+D:\projetos\teste-dev-gubee-main\domain\src\main\java\br\com\gubee\interview\domain\exceptions\InvalidPowerValueException.java
 D:\projetos\teste-dev-gubee-main\domain\src\main\java\br\com\gubee\interview\domain\entities\hero\Hero.java
 D:\projetos\teste-dev-gubee-main\domain\src\main\java\br\com\gubee\interview\domain\entities\hero\HeroId.java
 D:\projetos\teste-dev-gubee-main\domain\src\main\java\br\com\gubee\interview\domain\ValueObject.java
-D:\projetos\teste-dev-gubee-main\domain\src\main\java\br\com\gubee\interview\domain\entities\hero\HeroGateway.java
+D:\projetos\teste-dev-gubee-main\domain\src\main\java\br\com\gubee\interview\domain\entities\hero\HeroRepository.java
 D:\projetos\teste-dev-gubee-main\domain\src\main\java\br\com\gubee\interview\domain\Identifier.java

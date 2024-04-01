@@ -13,7 +13,7 @@
 
     <packaging>pom</packaging>
 
-    <name>teste-pleno-gubee</name>
+    <name>teste-dev-gubee-main</name>
     <description>Pleno interview project.</description>
 
 
@@ -43,7 +43,6 @@
         <module>application</module>
         <module>infrastructure</module>
         <module>domain</module>
-        <module>interfaces</module>
     </modules>
 
     <dependencyManagement>
@@ -63,18 +62,6 @@
             <dependency>
                 <groupId>gubee</groupId>
                 <artifactId>infrastructure</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>gubee</groupId>
-                <artifactId>interfaces</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>gubee</groupId>
-                <artifactId>domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

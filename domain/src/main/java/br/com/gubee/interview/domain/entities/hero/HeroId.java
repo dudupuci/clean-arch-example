@@ -17,7 +17,7 @@ public class HeroId extends Identifier {
         return HeroId.from(UUID.randomUUID());
     }
 
-    private static HeroId from(final String anId) {
+    public static HeroId from(final String anId) {
         return new HeroId(anId);
     }
 

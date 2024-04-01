@@ -1,4 +1,7 @@
 *.class
+/application/target
+/domain/target
+/infrastructure/target
 /core/target/classes/META-INF/fabric8/kubernetes/teste-pleno-gubee-core-deployment.yml
 /core/target/classes/META-INF/fabric8/openshift/teste-pleno-gubee-core-deploymentconfig.yml
 /core/target/fabric8/helm/kubernetes/teste-pleno-gubee-core/templates/teste-pleno-gubee-core-deployment.yaml
