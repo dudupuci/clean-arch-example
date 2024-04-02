@@ -1,8 +1,6 @@
 package br.com.gubee.interview.infrastructure.controllers.presentation.responses;
 
 import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionOutput;
-import br.com.gubee.interview.domain.entities.powerstats.PowerStats;
-import br.com.gubee.interview.domain.valueobjects.Comparision;
 
 import java.util.List;
 

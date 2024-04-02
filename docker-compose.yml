@@ -2,6 +2,7 @@ version: '3.1'
 
 services:
   db:
+    container_name: postgres-db
     image: postgres
     restart: always
     environment:
@@ -11,7 +12,15 @@ services:
     volumes:
       - ./core/src/main/resources/db/schema/init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql
     networks:
-      gubee_network:
+      - gubee_network
+
+  redis:
+    image: redis:latest
+    container_name: redis-db
+    ports:
+      - "6379:6379"
+    networks:
+      - gubee_network
 
 networks:
   gubee_network:

@@ -17,7 +17,7 @@ import java.util.UUID;
 public interface HeroControllerAPI {
 
     @PostMapping
-    ResponseEntity<Hero> create(@RequestBody CreateHeroApiRequest request);
+    ResponseEntity<?> create(@RequestBody CreateHeroApiRequest request);
 
     @GetMapping("/{id}")
     ResponseEntity<FindHeroByIdApiResponse> findById(@PathVariable("id") UUID id);

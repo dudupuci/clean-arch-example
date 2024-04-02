@@ -2,10 +2,12 @@ package br.com.gubee.interview.domain.entities.hero;
 
 import br.com.gubee.interview.domain.Identifier;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class HeroId extends Identifier {
+
+public class HeroId extends Identifier implements Serializable {
 
     protected final String value;
 

@@ -1,12 +1,13 @@
 package br.com.gubee.interview.domain.entities.powerstats;
 
 import br.com.gubee.interview.domain.Identifier;
+import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-
-public class PowerStatsId extends Identifier {
+public class PowerStatsId extends Identifier implements Serializable {
 
     protected final String value;
 

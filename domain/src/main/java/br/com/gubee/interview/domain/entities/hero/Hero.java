@@ -3,15 +3,17 @@ package br.com.gubee.interview.domain.entities.hero;
 import br.com.gubee.interview.domain.Entity;
 import br.com.gubee.interview.domain.entities.powerstats.PowerStats;
 import br.com.gubee.interview.domain.enums.Race;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
 @Getter
 @Setter
-public class Hero extends Entity<HeroId> {
+public class Hero extends Entity<HeroId> implements Serializable {
 
     private String name;
     private Race race;
@@ -37,14 +39,11 @@ public class Hero extends Entity<HeroId> {
         );
     }
 
-    public Hero(
-            final HeroId heroId,
-            final Instant createdAt,
-            Instant updatedAt
-    ) {
-        super(heroId, createdAt, updatedAt);
+    public Hero(HeroId id, Instant createdAt, Instant updatedAt) {
+        super(id, createdAt, updatedAt);
     }
 
+    @JsonCreator
     public Hero(
             final HeroId heroId,
             final Instant createdAt,
@@ -63,7 +62,7 @@ public class Hero extends Entity<HeroId> {
 
     @Override
     public void validate() {
-       Objects.requireNonNull(this.id, "Hero must have an ID");
+        Objects.requireNonNull(this.id, "Hero must have an ID");
     }
 
     public Hero update(String name, Race race, PowerStats powerStats, Boolean enabled) {

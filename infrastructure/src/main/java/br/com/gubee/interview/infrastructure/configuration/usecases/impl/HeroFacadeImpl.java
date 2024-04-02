@@ -4,6 +4,7 @@ import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionC
 import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionOutput;
 import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionUseCase;
 import br.com.gubee.interview.application.usecases.hero.create.CreateHeroCommand;
+import br.com.gubee.interview.application.usecases.hero.create.CreateHeroOutput;
 import br.com.gubee.interview.application.usecases.hero.create.CreateHeroUseCase;
 import br.com.gubee.interview.application.usecases.hero.delete.DeleteHeroCommand;
 import br.com.gubee.interview.application.usecases.hero.delete.DeleteHeroUseCase;
@@ -49,7 +50,7 @@ public class HeroFacadeImpl implements HeroFacade {
     }
 
     @Override
-    public Hero create(final CreateHeroCommand command) {
+    public CreateHeroOutput create(final CreateHeroCommand command) {
         return this.createHeroUseCase.execute(command);
     }
 

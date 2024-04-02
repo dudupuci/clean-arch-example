@@ -23,6 +23,7 @@ public class FindHeroByIdUseCaseImpl extends FindHeroByIdUseCase {
             throw new HeroNotFoundException("Hero with id " + anIn.id() + " has not found");
         }
 
+        System.out.println(heroOptional.get());
         var obj = heroOptional.get();
         return new FindHeroByIdOutput(
                 obj.getName(),

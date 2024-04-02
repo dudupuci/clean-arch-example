@@ -2,6 +2,7 @@ package br.com.gubee.interview.application.usecases.hero.comparision;
 
 import br.com.gubee.interview.domain.entities.hero.Hero;
 import br.com.gubee.interview.domain.entities.hero.HeroRepository;
+import br.com.gubee.interview.domain.exceptions.CannotCompareTheSameHeroException;
 import br.com.gubee.interview.domain.exceptions.HeroNotFoundException;
 import br.com.gubee.interview.domain.valueobjects.Comparision;
 
@@ -32,6 +33,10 @@ public class ComparionUseCaseImpl extends ComparisionUseCase {
 
         Hero hero = optionalHero.get();
         Hero anotherHero = optionalAnotherHero.get();
+
+        if (hero.getId().getValue().equals(anotherHero.getId().getValue())) {
+            throw new CannotCompareTheSameHeroException("Impossible to compare the hero x hero");
+        }
 
         List<String> details = new ArrayList<>();
         var heroPowerStats = hero.getPowerStats();

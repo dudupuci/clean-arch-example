@@ -7,11 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 @Getter
 @Setter
-public class PowerStats extends Entity<PowerStatsId> {
+public class PowerStats extends Entity<PowerStatsId> implements Serializable {
     private Short strength;
     private Short agility;
     private Short dexterity;
@@ -36,6 +37,11 @@ public class PowerStats extends Entity<PowerStatsId> {
                 intelligence
         );
     }
+    public PowerStats(PowerStatsId id, Instant createdAt, Instant updatedAt){
+        super(id, createdAt, updatedAt);
+    }
+
+    @JsonCreator
     public PowerStats(
             final PowerStatsId powerStatsId,
             final Instant createdAt,

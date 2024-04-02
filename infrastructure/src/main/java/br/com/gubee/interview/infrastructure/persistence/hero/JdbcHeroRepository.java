@@ -6,6 +6,8 @@ import br.com.gubee.interview.domain.entities.hero.HeroRepository;
 import br.com.gubee.interview.domain.entities.powerstats.PowerStats;
 import br.com.gubee.interview.domain.entities.powerstats.PowerStatsId;
 import br.com.gubee.interview.domain.enums.Race;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -108,7 +110,7 @@ public class JdbcHeroRepository implements HeroRepository {
                 "VALUES (:id, :created_at, :updated_at, :strength, :agility, :dexterity, :intelligence)";
 
         MapSqlParameterSource powerStatsParams = new MapSqlParameterSource()
-                .addValue("id", UUID.fromString(PowerStatsId.from(anHero.getPowerStats().getId().getValue()).getValue()))
+                .addValue("id", UUID.fromString(anHero.getPowerStats().getId().getValue()))
                 .addValue("created_at", now)
                 .addValue("updated_at", now)
                 .addValue("strength", anHero.getPowerStats().getStrength())
@@ -128,7 +130,7 @@ public class JdbcHeroRepository implements HeroRepository {
                 "VALUES (:id, :created_at, :updated_at, :name, :race, :power_stats_id, :enabled)";
 
         MapSqlParameterSource params = new MapSqlParameterSource()
-                .addValue("id", UUID.fromString(HeroId.from(anHero.getId().getValue()).getValue()))
+                .addValue("id", UUID.fromString(anHero.getId().getValue()))
                 .addValue("created_at", now)
                 .addValue("updated_at", now)
                 .addValue("name", anHero.getName())
@@ -195,6 +197,7 @@ public class JdbcHeroRepository implements HeroRepository {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "heroes", key = "#id")
     public Optional<Hero> findById(final String id) {
         String sql = "SELECT h.*, p.* FROM interview_service.hero h " +
                 "JOIN interview_service.power_stats p ON h.power_stats_id = p.id " +

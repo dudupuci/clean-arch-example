@@ -6,12 +6,15 @@ import br.com.gubee.interview.application.usecases.hero.findall.FindAllHeroesCom
 import br.com.gubee.interview.application.usecases.hero.findbyid.FindHeroByIdCommand;
 import br.com.gubee.interview.application.usecases.hero.update.UpdateHeroCommand;
 import br.com.gubee.interview.domain.entities.hero.Hero;
+import br.com.gubee.interview.domain.exceptions.CannotCompareTheSameHeroException;
+import br.com.gubee.interview.domain.exceptions.HeroNameAlreadyExistsException;
 import br.com.gubee.interview.domain.exceptions.HeroNotFoundException;
 import br.com.gubee.interview.infrastructure.configuration.usecases.HeroFacade;
 import br.com.gubee.interview.infrastructure.controllers.interfaces.HeroControllerAPI;
 import br.com.gubee.interview.infrastructure.controllers.presentation.requests.CreateHeroApiRequest;
 import br.com.gubee.interview.infrastructure.controllers.presentation.requests.UpdateHeroApiRequest;
 import br.com.gubee.interview.infrastructure.controllers.presentation.responses.ComparisionApiResponse;
+import br.com.gubee.interview.infrastructure.controllers.presentation.responses.CreateHeroApiResponse;
 import br.com.gubee.interview.infrastructure.controllers.presentation.responses.FindHeroByIdApiResponse;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -33,9 +36,15 @@ public class HeroController implements HeroControllerAPI {
     }
 
     @Override
-    public ResponseEntity<Hero> create(final CreateHeroApiRequest request) {
-        var hero = this.heroFacade.create(request.toCommand());
-        return ResponseEntity.created(URI.create("/heroes/" + hero.getId())).body(hero);
+    public ResponseEntity<?> create(final CreateHeroApiRequest request) {
+        try {
+            var heroOutput = this.heroFacade.create(request.toCommand());
+            var heroApiResponse = CreateHeroApiResponse.from(heroOutput);
+            return ResponseEntity.created(URI.create("/heroes/" + heroApiResponse.id())).body(heroApiResponse);
+        } catch (HeroNameAlreadyExistsException err) {
+            return ResponseEntity.badRequest().body(err.getMessage());
+        }
+
     }
 
     @Override
@@ -88,6 +97,8 @@ public class HeroController implements HeroControllerAPI {
             return ResponseEntity.ok().body(ComparisionApiResponse.from(comparisionOutput));
         } catch (HeroNotFoundException | EmptyResultDataAccessException err) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Hero not found");
+        } catch (CannotCompareTheSameHeroException err) {
+            return ResponseEntity.badRequest().body(err.getMessage());
         }
     }
 
