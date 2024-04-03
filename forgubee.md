@@ -48,3 +48,20 @@ JDBC:
 - Para gerenciar as migrations eu já estava mais familiarizado a utilizar o Flyway, porém
   eu acho que nem vai ter muito o que eu criar, pois só estou transacionando e gerenciando as
   entidades de Hero e PowerStats nessa aplicacao;
+
+Actuator:
+
+- Já tinha ouvido falar também, mas nunca havia usado
+- Criei uma nova aplicação com SpringBoot e adicionei 2 dependencias
+  - de.codecentric:spring-boot-admin-starter-server
+  - org.springframework.boot:spring-boot-starter-web
+- Na classe principal da aplicacao Spring, adicionei a anotacao @EnableAdminServer para configurar
+  a aplicacao e acessar o dashboard;
+- server.port=8081
+- Na parte de Infraestrutura, que é a camada da minha clean arch que eu faço conexões externas também,
+  adicionei uma dependência: spring-boot-admin-starter-client, para a aplicacao na porta 8081
+  conseguir registrar minha infra como um client;
+
+
+
+![img_2.png](img_2.png)
