@@ -1,4 +1,5 @@
 *.class
+.env
 /application/target
 /domain/target
 /infrastructure/target
