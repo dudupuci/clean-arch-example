@@ -31,6 +31,9 @@ public interface HeroControllerAPI {
     @DeleteMapping("/{id}")
     ResponseEntity<?> deleteById(@PathVariable("id") UUID id);
 
-    @GetMapping("/compare")
-    ResponseEntity<?> compare(@RequestBody ComparisionCommand command);
+    @GetMapping("/compare/{heroId}/{anotherHeroId}")
+    ResponseEntity<?> compare(
+            @PathVariable("heroId") UUID heroId,
+            @PathVariable("anotherHeroId") UUID anotherHeroId
+    );
 }

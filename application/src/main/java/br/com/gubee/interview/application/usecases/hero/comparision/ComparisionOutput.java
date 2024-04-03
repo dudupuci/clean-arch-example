@@ -6,12 +6,8 @@ import br.com.gubee.interview.domain.valueobjects.Comparision;
 import java.util.List;
 
 public record ComparisionOutput(
-        String heroId,
-        String heroName,
-        String anotherHeroId,
-        String anotherHeroName,
-        HeroPowerStatsOutput heroPowerStats,
-        HeroPowerStatsOutput anotherHeroPowerStats,
+        HeroComparisionOutput hero,
+        HeroComparisionOutput anotherHero,
         List<String> details
 ) {
     public record HeroPowerStatsOutput(
@@ -33,12 +29,16 @@ public record ComparisionOutput(
 
     public static ComparisionOutput from(Comparision comparision) {
         return new ComparisionOutput(
-                comparision.heroId(),
-                comparision.heroName(),
-                comparision.anotherHeroId(),
-                comparision.anotherHeroName(),
-                HeroPowerStatsOutput.from(comparision.heroPowerStats()),
-                HeroPowerStatsOutput.from(comparision.anotherHeroPowerStats()),
+                new HeroComparisionOutput(
+                        comparision.heroId(),
+                        comparision.heroName(),
+                        HeroPowerStatsOutput.from(comparision.heroPowerStats())
+                ),
+                new HeroComparisionOutput(
+                        comparision.anotherHeroId(),
+                        comparision.anotherHeroName(),
+                        HeroPowerStatsOutput.from(comparision.anotherHeroPowerStats())
+                ),
                 comparision.details()
         );
     }

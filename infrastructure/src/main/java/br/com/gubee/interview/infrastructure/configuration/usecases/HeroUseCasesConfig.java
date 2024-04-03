@@ -1,7 +1,7 @@
 package br.com.gubee.interview.infrastructure.configuration.usecases;
 
-import br.com.gubee.interview.application.usecases.hero.comparision.ComparionUseCaseImpl;
 import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionUseCase;
+import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionUseCaseImpl;
 import br.com.gubee.interview.application.usecases.hero.create.CreateHeroUseCase;
 import br.com.gubee.interview.application.usecases.hero.create.CreateHeroUseCaseImpl;
 import br.com.gubee.interview.application.usecases.hero.delete.DeleteHeroUseCase;
@@ -38,7 +38,6 @@ public class HeroUseCasesConfig {
     public FindAllHeroesUseCase findAllHeroesUseCase() {
         return new FindAllHeroesUseCaseImpl(heroRepository);
     }
-
     @Bean
     public UpdateHeroUseCase updateHeroUseCase() {
         return new UpdateHeroUseCaseImpl(heroRepository);
@@ -50,5 +49,5 @@ public class HeroUseCasesConfig {
     }
 
     @Bean
-    public ComparisionUseCase comparisionUseCase() {return new ComparionUseCaseImpl(heroRepository); }
+    public ComparisionUseCase comparisionUseCase() {return new ComparisionUseCaseImpl(heroRepository); }
 }

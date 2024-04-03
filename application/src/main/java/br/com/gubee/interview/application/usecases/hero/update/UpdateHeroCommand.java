@@ -7,16 +7,22 @@ public record UpdateHeroCommand(
         String id,
         String name,
         Race race,
-        PowerStats powerStats,
+        Short strength,
+        Short agility,
+        Short dexterity,
+        Short intelligence,
         Boolean enabled
 ) {
     public static UpdateHeroCommand with(
             final String id,
             final String name,
             final Race race,
-            final PowerStats powerStats,
+            final Short strength,
+            final Short agility,
+            final Short dexterity,
+            final Short intelligence,
             final Boolean enabled
     ) {
-        return new UpdateHeroCommand(id, name, race, powerStats, enabled);
+        return new UpdateHeroCommand(id, name, race, strength, agility, dexterity, intelligence, enabled);
     }
 }

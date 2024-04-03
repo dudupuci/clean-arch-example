@@ -40,6 +40,15 @@ public class PowerStats extends Entity<PowerStatsId> implements Serializable {
     public PowerStats(PowerStatsId id, Instant createdAt, Instant updatedAt){
         super(id, createdAt, updatedAt);
     }
+    public PowerStats update(Short strength, Short agility, Short dexterity, Short intelligence) {
+        this.strength = strength;
+        this.agility = agility;
+        this.dexterity = dexterity;
+        this.intelligence = intelligence;
+        this.updatedAt = Instant.now();
+        return this;
+    }
+
 
     @JsonCreator
     public PowerStats(

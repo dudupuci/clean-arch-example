@@ -65,11 +65,11 @@ public class Hero extends Entity<HeroId> implements Serializable {
         Objects.requireNonNull(this.id, "Hero must have an ID");
     }
 
-    public Hero update(String name, Race race, PowerStats powerStats, Boolean enabled) {
+    public Hero update(String name, Race race, Boolean enabled, Short strength, Short agility, Short dexterity, Short intelligence) {
         this.name = name;
         this.race = race;
-        this.powerStats = powerStats;
         this.enabled = enabled;
+        this.powerStats.update(strength, agility, dexterity, intelligence);
         this.updatedAt = Instant.now();
         return this;
     }

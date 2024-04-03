@@ -7,7 +7,6 @@ import br.com.gubee.interview.domain.entities.powerstats.PowerStats;
 import br.com.gubee.interview.domain.entities.powerstats.PowerStatsId;
 import br.com.gubee.interview.domain.enums.Race;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -175,6 +174,32 @@ public class JdbcHeroRepository implements HeroRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<Hero> findAll() {
+        String sql = "SELECT h.id, h.created_at, h.updated_at, h.name, h.race, h.power_stats_id, h.enabled, p.id as power_stats_id " +
+                     "FROM interview_service.hero h LEFT JOIN interview_service.power_stats p ON h.power_stats_id = p.id";
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        return jdbcTemplate.query(sql, params, (rs, rowNum) -> {
+            PowerStats powerStats = new PowerStats(
+                    PowerStatsId.from(rs.getString("power_stats_id")),
+                    rs.getTimestamp("created_at").toInstant(),
+                    rs.getTimestamp("updated_at").toInstant());
+            return new Hero(
+                    HeroId.from(rs.getString("id")),
+                    rs.getTimestamp("created_at").toInstant(),
+                    rs.getTimestamp("updated_at").toInstant(),
+                    rs.getString("name"),
+                    Race.valueOf(rs.getString("race")),
+                    powerStats,
+                    rs.getBoolean("enabled")
+            );
+        });
+    }
+
+
+
+
+    @Override
     @Transactional
     public void deleteById(String id) {
         Optional<Hero> heroOptional = findById(id);
@@ -197,7 +222,7 @@ public class JdbcHeroRepository implements HeroRepository {
 
     @Override
     @Transactional(readOnly = true)
-    @Cacheable(value = "heroes", key = "#id")
+    @Cacheable("heroes")
     public Optional<Hero> findById(final String id) {
         String sql = "SELECT h.*, p.* FROM interview_service.hero h " +
                 "JOIN interview_service.power_stats p ON h.power_stats_id = p.id " +

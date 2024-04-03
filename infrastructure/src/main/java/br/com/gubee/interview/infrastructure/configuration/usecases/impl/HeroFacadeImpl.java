@@ -16,8 +16,6 @@ import br.com.gubee.interview.application.usecases.hero.findbyid.FindHeroByIdOut
 import br.com.gubee.interview.application.usecases.hero.findbyid.FindHeroByIdUseCase;
 import br.com.gubee.interview.application.usecases.hero.update.UpdateHeroCommand;
 import br.com.gubee.interview.application.usecases.hero.update.UpdateHeroUseCase;
-import br.com.gubee.interview.domain.entities.hero.Hero;
-import br.com.gubee.interview.domain.valueobjects.Comparision;
 import br.com.gubee.interview.infrastructure.configuration.usecases.HeroFacade;
 import org.springframework.stereotype.Service;
 

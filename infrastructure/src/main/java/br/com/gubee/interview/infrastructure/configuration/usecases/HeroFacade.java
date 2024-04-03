@@ -10,12 +10,8 @@ import br.com.gubee.interview.application.usecases.hero.findall.FindAllHeroesOut
 import br.com.gubee.interview.application.usecases.hero.findbyid.FindHeroByIdCommand;
 import br.com.gubee.interview.application.usecases.hero.findbyid.FindHeroByIdOutput;
 import br.com.gubee.interview.application.usecases.hero.update.UpdateHeroCommand;
-import br.com.gubee.interview.domain.entities.hero.Hero;
-import br.com.gubee.interview.domain.valueobjects.Comparision;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 public interface HeroFacade {
      CreateHeroOutput create(CreateHeroCommand command);

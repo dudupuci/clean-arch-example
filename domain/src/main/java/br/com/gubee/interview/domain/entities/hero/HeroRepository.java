@@ -9,4 +9,5 @@ public interface HeroRepository {
     Optional<Hero> findById(String id);
     void deleteById(String id);
     List<Hero> findAll(String name);
+    List<Hero> findAll();
 }

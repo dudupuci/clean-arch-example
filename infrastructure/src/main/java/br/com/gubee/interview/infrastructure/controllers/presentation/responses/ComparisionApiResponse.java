@@ -5,12 +5,8 @@ import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionO
 import java.util.List;
 
 public record ComparisionApiResponse(
-        String heroId,
-        String heroName,
-        String anotherHeroId,
-        String anotherHeroName,
-        HeroPowerStatsApiResponse heroPowerStats,
-        HeroPowerStatsApiResponse anotherHeroPowerStats,
+        HeroComparisionApiResponse hero,
+        HeroComparisionApiResponse anotherHero,
         List<String> details
 ) {
     public record HeroPowerStatsApiResponse(
@@ -30,12 +26,8 @@ public record ComparisionApiResponse(
     }
     public static ComparisionApiResponse from(ComparisionOutput output) {
         return new ComparisionApiResponse(
-                output.heroId(),
-                output.heroName(),
-                output.anotherHeroId(),
-                output.anotherHeroName(),
-                HeroPowerStatsApiResponse.from(output.heroPowerStats()),
-                HeroPowerStatsApiResponse.from(output.anotherHeroPowerStats()),
+                HeroComparisionApiResponse.from(output.hero()),
+                HeroComparisionApiResponse.from(output.anotherHero()),
                 output.details()
         );
     }

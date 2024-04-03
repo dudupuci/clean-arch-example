@@ -4,17 +4,16 @@ import br.com.gubee.interview.domain.entities.hero.Hero;
 import br.com.gubee.interview.domain.entities.hero.HeroRepository;
 import br.com.gubee.interview.domain.exceptions.CannotCompareTheSameHeroException;
 import br.com.gubee.interview.domain.exceptions.HeroNotFoundException;
-import br.com.gubee.interview.domain.valueobjects.Comparision;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ComparionUseCaseImpl extends ComparisionUseCase {
+public class ComparisionUseCaseImpl extends ComparisionUseCase {
 
     private final HeroRepository heroRepository;
 
-    public ComparionUseCaseImpl(final HeroRepository heroRepository) {
+    public ComparisionUseCaseImpl(final HeroRepository heroRepository) {
         this.heroRepository = heroRepository;
     }
 
@@ -48,12 +47,16 @@ public class ComparionUseCaseImpl extends ComparisionUseCase {
         comparePowerStat("intelligence", heroPowerStats.getIntelligence(), anotherHeroPowerStats.getIntelligence(), hero.getName(), anotherHero.getName(), details);
 
         return new ComparisionOutput(
-                hero.getId().getValue(),
-                hero.getName(),
-                anotherHero.getId().getValue(),
-                anotherHero.getName(),
-                ComparisionOutput.HeroPowerStatsOutput.from(heroPowerStats),
-                ComparisionOutput.HeroPowerStatsOutput.from(anotherHeroPowerStats),
+                new HeroComparisionOutput(
+                        hero.getId().getValue(),
+                        hero.getName(),
+                        ComparisionOutput.HeroPowerStatsOutput.from(heroPowerStats)
+                ),
+                new HeroComparisionOutput(
+                        anotherHero.getId().getValue(),
+                        anotherHero.getName(),
+                        ComparisionOutput.HeroPowerStatsOutput.from(anotherHeroPowerStats)
+                ),
                 details
         );
     }

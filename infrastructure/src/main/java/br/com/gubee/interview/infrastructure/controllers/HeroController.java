@@ -4,8 +4,6 @@ import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionC
 import br.com.gubee.interview.application.usecases.hero.delete.DeleteHeroCommand;
 import br.com.gubee.interview.application.usecases.hero.findall.FindAllHeroesCommand;
 import br.com.gubee.interview.application.usecases.hero.findbyid.FindHeroByIdCommand;
-import br.com.gubee.interview.application.usecases.hero.update.UpdateHeroCommand;
-import br.com.gubee.interview.domain.entities.hero.Hero;
 import br.com.gubee.interview.domain.exceptions.CannotCompareTheSameHeroException;
 import br.com.gubee.interview.domain.exceptions.HeroNameAlreadyExistsException;
 import br.com.gubee.interview.domain.exceptions.HeroNotFoundException;
@@ -19,6 +17,7 @@ import br.com.gubee.interview.infrastructure.controllers.presentation.responses.
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +26,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/heroes")
+@CrossOrigin(value = "http://localhost:3000")
 public class HeroController implements HeroControllerAPI {
 
     private final HeroFacade heroFacade;
@@ -91,8 +91,9 @@ public class HeroController implements HeroControllerAPI {
     }
 
     @Override
-    public ResponseEntity<?> compare(final ComparisionCommand command) {
+    public ResponseEntity<?> compare(UUID heroId, UUID anotherHeroId) {
         try {
+            var command = new ComparisionCommand(heroId.toString(), anotherHeroId.toString());
             var comparisionOutput = this.heroFacade.compare(command);
             return ResponseEntity.ok().body(ComparisionApiResponse.from(comparisionOutput));
         } catch (HeroNotFoundException | EmptyResultDataAccessException err) {

@@ -26,13 +26,16 @@ public class UpdateHeroUseCaseImpl extends UpdateHeroUseCase {
 
         var heroToUpdate = heroOptional.get();
 
-        var hero = heroToUpdate.update(
+        var updatedHero = heroToUpdate.update(
                 anIn.name(),
                 anIn.race(),
-                anIn.powerStats(),
-                anIn.enabled()
+                anIn.enabled(),
+                anIn.strength(),
+                anIn.agility(),
+                anIn.dexterity(),
+                anIn.intelligence()
         );
 
-        this.gateway.update(hero);
+        this.gateway.update(updatedHero);
     }
 }
