@@ -63,5 +63,11 @@ Actuator:
   conseguir registrar minha infra como um client;
 
 
-
 ![img_2.png](img_2.png)
+
+
+Clean Arch:
+
+- Eu já havia estudado e feito uns exemplos, até mesmo já utilizei aqui dentro da empresa onde estou hoje;
+- Eu criei a aplicação utilizando Clean Arch, baseado no conhecimento que eu ja tinha sobre ela e
+  por um curso que fiz, de Java Spring + Clean Arch, da Full Cycle (via Telegram);
