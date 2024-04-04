@@ -29,7 +29,6 @@ public class JdbcConfiguration {
     @Bean
     public DataSource dataSource() {
         HikariDataSource dataSource = new HikariDataSource();
-
         dataSource.setDriverClassName(org.postgresql.Driver.class.getName());
         dataSource.setJdbcUrl(jdbcUrl);
         dataSource.setUsername(username);

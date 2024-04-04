@@ -1,4 +1,4 @@
-package br.com.gubee.interview.infrastructure.configuration.usecases.impl;
+package br.com.gubee.interview.infrastructure.persistence.facade.impl;
 
 import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionCommand;
 import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionOutput;
@@ -16,7 +16,7 @@ import br.com.gubee.interview.application.usecases.hero.findbyid.FindHeroByIdOut
 import br.com.gubee.interview.application.usecases.hero.findbyid.FindHeroByIdUseCase;
 import br.com.gubee.interview.application.usecases.hero.update.UpdateHeroCommand;
 import br.com.gubee.interview.application.usecases.hero.update.UpdateHeroUseCase;
-import br.com.gubee.interview.infrastructure.configuration.usecases.HeroFacade;
+import br.com.gubee.interview.infrastructure.persistence.facade.HeroFacade;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

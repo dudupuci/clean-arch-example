@@ -38,6 +38,8 @@ JDK:
 
 - Estava tendo alguns problemas de incompatibilidade com a JDK 21, agora que estou mais adiantado 
   no projeto, vou tentar usa-la;
+- Consegui fazer o upgrade para o Java 21, o problema era a incompatibilidade com o lombok
+  porém encontrei uma forma de resolver;
 
 JDBC:
 

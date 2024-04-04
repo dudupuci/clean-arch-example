@@ -1,4 +1,4 @@
-package br.com.gubee.interview.infrastructure.configuration.usecases;
+package br.com.gubee.interview.infrastructure.persistence.facade;
 
 import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionCommand;
 import br.com.gubee.interview.application.usecases.hero.comparision.ComparisionOutput;

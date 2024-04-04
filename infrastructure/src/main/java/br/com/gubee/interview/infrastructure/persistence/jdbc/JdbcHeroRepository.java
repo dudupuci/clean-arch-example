@@ -1,4 +1,4 @@
-package br.com.gubee.interview.infrastructure.persistence.hero;
+package br.com.gubee.interview.infrastructure.persistence.jdbc;
 
 import br.com.gubee.interview.domain.entities.hero.Hero;
 import br.com.gubee.interview.domain.entities.hero.HeroId;

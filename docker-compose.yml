@@ -6,7 +6,9 @@ services:
     image: postgres
     restart: always
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: orp101099
+      POSTGRES_DB: gubee
     ports:
       - "5432:5432"
     volumes:

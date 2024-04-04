@@ -12,11 +12,11 @@ import org.springframework.dao.DuplicateKeyException;
 import java.util.Objects;
 
 
-public class CreateHeroUseCaseImpl extends CreateHeroUseCase{
-    private final HeroRepository gateway;
+public class CreateHeroUseCaseImpl extends CreateHeroUseCase {
+    private final HeroRepository repository;
 
     public CreateHeroUseCaseImpl(final HeroRepository repository) {
-        this.gateway = Objects.requireNonNull(repository, "Heroe's repository must be not null.");
+        this.repository = Objects.requireNonNull(repository, "Heroe's repository must be not null.");
     }
 
     @Override
@@ -36,21 +36,22 @@ public class CreateHeroUseCaseImpl extends CreateHeroUseCase{
             );
 
             hero.validate();
+            powerStats.validate();
 
-            var savedHero = this.gateway.save(hero);
+            this.repository.save(hero);
 
             return CreateHeroOutput.with(
-                    savedHero.getId().getValue(),
-                    savedHero.getName(),
-                    savedHero.getRace(),
-                    savedHero.getPowerStats(),
-                    savedHero.getEnabled()
+                    hero.getId().getValue(),
+                    hero.getName(),
+                    hero.getRace(),
+                    hero.getPowerStats(),
+                    hero.getEnabled()
             );
 
         } catch (DuplicateKeyException err) {
-            throw new HeroNameAlreadyExistsException("Hero with name "+anIn.name()+ " already exists on database.");
+            throw new HeroNameAlreadyExistsException("Hero with name " + anIn.name() + " already exists on database.");
         } catch (NullPointerException err) {
-            throw new NullOrInvalidDataEnteredException("Check the data entered"+err.getMessage());
+            throw new NullOrInvalidDataEnteredException("Check the data entered" + err.getMessage());
         }
     }
 }

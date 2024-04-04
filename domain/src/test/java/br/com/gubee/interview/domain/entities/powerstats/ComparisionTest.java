@@ -68,5 +68,4 @@ public class ComparisionTest {
             throw new CannotCompareTheSameHeroException("Cannot compare the hero x hero");
         }
     }
-    // Outros testes podem ser adicionados conforme necessário
 }

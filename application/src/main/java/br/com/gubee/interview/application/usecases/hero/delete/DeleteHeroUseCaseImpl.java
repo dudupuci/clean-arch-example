@@ -3,6 +3,7 @@ package br.com.gubee.interview.application.usecases.hero.delete;
 import br.com.gubee.interview.domain.entities.hero.Hero;
 import br.com.gubee.interview.domain.entities.hero.HeroRepository;
 import br.com.gubee.interview.domain.exceptions.HeroNotFoundException;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -18,12 +19,12 @@ public class DeleteHeroUseCaseImpl extends DeleteHeroUseCase {
 
     @Override
     public void execute(final DeleteHeroCommand anIn) {
-        Optional<Hero> heroOptional = this.gateway.findById(anIn.id());
-
-        if (heroOptional.isEmpty()) {
-            throw new HeroNotFoundException("Hero with id " + anIn.id() + " has not found");
+        try {
+            Optional<Hero> heroOptional = this.gateway.findById(anIn.id());
+            assert heroOptional.isPresent();
+            this.gateway.deleteById(heroOptional.get().getId().getValue());
+        } catch (EmptyResultDataAccessException err) {
+            throw new HeroNotFoundException("Hero not found");
         }
-
-        this.gateway.deleteById(anIn.id());
     }
 }
